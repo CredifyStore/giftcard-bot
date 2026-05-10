@@ -81,7 +81,9 @@ async def mercadopago_webhook(request: web.Request) -> web.Response:
             await bot.send_message(
                 chat_id=topup["user_id"],
                 text=(
-                    f"✅ *Recarga confirmada\\!*\n\n"
+                    f"✅ *Recarga confirmada\!*
+
+"
                     f"➕ *\\+R\\$ {topup['amount_cents']/100:.2f}* adicionados ao seu saldo\\.\n"
                     f"💰 Saldo atual: *R\\$ {new_bal/100:.2f}*\n\n"
                     f"Use /start para comprar seus giftcards\\! 🎁"
