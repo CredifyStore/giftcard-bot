@@ -11,7 +11,7 @@ from models.database import (
     get_user_profile, get_top10_spenders,
     get_wallet_txns,
 )
-from services.baaspago import create_pix_charge
+from services.mercadopago import create_pix_charge
 from services.history import post_purchase
 
 
