@@ -187,10 +187,31 @@ async def _generate_topup_pix(update, ctx, amount_cents: int, via_query=None):
         f"⏳ Expira em *30 minutos*\\. Após confirmação o saldo é creditado automaticamente\\!"
     )
     kb = [[InlineKeyboardButton("🔙 Menu", callback_data="start")]]
+
+    # Envia mensagem com texto
     if via_query:
         await via_query.edit_message_text(text, reply_markup=InlineKeyboardMarkup(kb), parse_mode=ParseMode.MARKDOWN_V2)
+        chat_id = via_query.message.chat_id
     else:
         await update.message.reply_text(text, reply_markup=InlineKeyboardMarkup(kb), parse_mode=ParseMode.MARKDOWN_V2)
+        chat_id = update.effective_chat.id
+
+    # Envia QR code como imagem se disponível
+    qr_b64 = charge.get("qr_code_image", "")
+    if qr_b64:
+        import base64
+        from io import BytesIO
+        try:
+            img_bytes = base64.b64decode(qr_b64)
+            await ctx.bot.send_photo(
+                chat_id=chat_id,
+                photo=BytesIO(img_bytes),
+                caption="📷 QR Code PIX — escaneie para pagar",
+            )
+        except Exception as e:
+            print(f"[topup] Erro ao enviar QR code: {e}")
+
+
 
 
 # ──── Catálogo ────────────────────────────────────────────────
