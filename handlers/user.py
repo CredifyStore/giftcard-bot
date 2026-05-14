@@ -293,7 +293,7 @@ async def initiate_buy(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
 
 # ──── Adicionar Saldo ─────────────────────────────────────────
 
-MIN_TOPUP = 3000
+MIN_TOPUP = 100
 MAX_TOPUP = 100000
 
 
